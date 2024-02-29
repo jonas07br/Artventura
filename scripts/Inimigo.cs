@@ -12,9 +12,10 @@ public class Inimigo : MonoBehaviour
 
     public GameObject hitbox;
 
-    private bool ataque;
+    public bool ataque;
 
     public Collider2D areadano;
+
     public Collider2D visao;
 
     public GameObject hitboxprefab;
@@ -46,7 +47,8 @@ public class Inimigo : MonoBehaviour
     private bool playerNaVisao = false;
 
     public LayerMask layerChao;
-    
+
+    public bool dashing = false;
 
     void Start()
     {
@@ -62,8 +64,6 @@ public class Inimigo : MonoBehaviour
     void Update()
     {
         Move();
-        
-        
     }
 
     void Move()
@@ -103,13 +103,15 @@ public class Inimigo : MonoBehaviour
         }
         else
         {
-            coxinharb.velocity = new Vector3(0, 0);
+            if (dashing == false)
+            {
+                coxinharb.velocity = new Vector3(0, 0);
+            }
         }
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        
         if (col.gameObject.tag == "Player")
         {
             playerNaVisao = true;
@@ -137,7 +139,6 @@ public class Inimigo : MonoBehaviour
             }
         }
     }
-    
 
     void OnTriggerExit2D(Collider2D col)
     {
@@ -155,7 +156,6 @@ public class Inimigo : MonoBehaviour
             ataque = false;
         }
     }
-    
 
     private void Flip()
     {
@@ -201,5 +201,4 @@ public class Inimigo : MonoBehaviour
 
         imortal = false;
     }
-    
 }

@@ -36,6 +36,8 @@ public class PlayerMove : MonoBehaviour
     public GameObject hitboxprefab;
     public GameObject projetil;
     public float vidas;
+    public static bool info;
+    
     
 
     private SpriteRenderer sprite;
@@ -54,7 +56,7 @@ public class PlayerMove : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
         Move();
         Jump();
         Atack();
@@ -62,10 +64,11 @@ public class PlayerMove : MonoBehaviour
         ataquelongo();
         isalive();
     }
+    
 
     private void Move()
     {
-        if (Input.GetButton("Horizontal") && atacando==false && ataquedistancia==false)
+        if (Input.GetButton("Horizontal") && atacando==false && ataquedistancia==false && info==false)
         {
             horizontalMove = Input.GetAxis("Horizontal");
             Vector3 movement = new Vector3(horizontalMove, 0f, 0f);
@@ -163,8 +166,11 @@ public class PlayerMove : MonoBehaviour
         if (col.gameObject.tag == "checkpoint"){
             spawn = col.gameObject.transform.position;
         }
-        if (col.gameObject.tag == "buraco")
-        vidas=vidas-5;
+        if (col.gameObject.tag == "buraco"){
+            vidas=vidas-5;
+        }
+        
+        
     }
 
     public IEnumerator DamagePlayer(){
